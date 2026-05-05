@@ -32,20 +32,12 @@ def create_test_data():
     # Создание пользователей
     print("\n👥 Создание пользователей...")
     users_data = [
-        ('admin1', 'password123', 'Алексей', 'Иванов', 'admin', 'Отдел ТОиР'),
-        ('admin2', 'password123', 'Мария', 'Петрова', 'admin', 'Отдел контроля'),
-        ('engineer1', 'password123', 'Дмитрий', 'Сидоров', 'engineer', 'Цех 1'),
-        ('engineer2', 'password123', 'Елена', 'Козлова', 'engineer', 'Цех 2'),
-        ('engineer3', 'password123', 'Сергей', 'Новиков', 'engineer', 'Цех 3'),
-        ('technician1', 'password123', 'Андрей', 'Морозов', 'technician', 'Цех 1'),
-        ('technician2', 'password123', 'Ольга', 'Волкова', 'technician', 'Цех 2'),
-        ('technician3', 'password123', 'Павел', 'Лебедев', 'technician', 'Цех 3'),
-        ('technician4', 'password123', 'Наталья', 'Соколова', 'technician', 'Цех 1'),
-        ('storekeeper1', 'password123', 'Игорь', 'Попов', 'storekeeper', 'Склад №1'),
-        ('storekeeper2', 'password123', 'Татьяна', 'Васильева', 'storekeeper', 'Склад №2'),
-        ('intern1', 'password123', 'Максим', 'Кузнецов', 'trainee', 'Цех 1'),
-        ('intern2', 'password123', 'Анна', 'Павлова', 'trainee', 'Цех 2'),
-        ('intern3', 'password123', 'Кирилл', 'Смирнов', 'trainee', 'Цех 3'),
+        ('admin_otir', 'admin123', 'Алексей', 'Иванов', 'admin', 'Отдел ТОиР'),
+        ('eng_ivanov', 'engineer123', 'Дмитрий', 'Сидоров', 'engineer', 'Цех 1'),
+        ('tech_sidorov', 'tech123', 'Андрей', 'Морозов', 'technician', 'Цех 1'),
+        ('store_morozov', 'store123', 'Игорь', 'Попов', 'storekeeper', 'Склад №1'),
+        ('trainee_smirnov', 'trainee123', 'Максим', 'Кузнецов', 'trainee', 'Цех 1'),
+        ('seller_petrov', 'seller123', 'Елена', 'Петрова', 'seller', 'Отдел продаж'),
     ]
     
     created_users = {}
@@ -161,7 +153,7 @@ def create_test_data():
             priority=priority,
             status=status,
             assigned_user=created_users.get(technician),
-            created_by=random.choice([created_users['admin1'], created_users['engineer1']]),
+            created_by=random.choice([created_users['admin_otir'], created_users['eng_ivanov']]),
             description=description,
             started_at=(date.today() - timedelta(days=random.randint(1, 5))).isoformat() if status in ['in_progress', 'completed'] else None,
             completed_at=(date.today() - timedelta(days=1)).isoformat() if status == 'completed' else None,
@@ -201,11 +193,11 @@ def create_test_data():
     work_orders_list = list(WorkOrder.objects.all())
     
     requests_data = [
-        (work_orders_list[0], spare_parts[3], 2, 'approved', 'technician1', 'storekeeper1'),
-        (work_orders_list[1], spare_parts[2], 1, 'issued', 'technician2', 'storekeeper1'),
-        (work_orders_list[2], spare_parts[11], 4, 'requested', 'technician3', None),
-        (work_orders_list[4], spare_parts[0], 6, 'approved', 'engineer1', 'storekeeper2'),
-        (work_orders_list[6], spare_parts[5], 3, 'issued', 'technician2', 'storekeeper1'),
+        (work_orders_list[0], spare_parts[3], 2, 'approved', 'tech_sidorov', 'store_morozov'),
+        (work_orders_list[1], spare_parts[2], 1, 'issued', 'tech_sidorov', 'store_morozov'),
+        (work_orders_list[2], spare_parts[11], 4, 'requested', 'tech_sidorov', None),
+        (work_orders_list[4], spare_parts[0], 6, 'approved', 'eng_ivanov', 'store_morozov'),
+        (work_orders_list[6], spare_parts[5], 3, 'issued', 'tech_sidorov', 'store_morozov'),
     ]
     
     for work_order, part, qty, status, requester, fulfiller in requests_data:
