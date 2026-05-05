@@ -11,6 +11,7 @@ class User(AbstractUser):
         ('technician', 'Рабочий / Слесарь-ремонтник'),
         ('storekeeper', 'Кладовщик'),
         ('trainee', 'Ученик / Практикант'),
+        ('seller', 'Продавец'),
     ]
     
     role = models.CharField(
@@ -61,3 +62,7 @@ class User(AbstractUser):
     @property
     def is_trainee(self):
         return self.role == 'trainee'
+    
+    @property
+    def is_seller(self):
+        return self.role == 'seller'

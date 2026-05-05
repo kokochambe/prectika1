@@ -25,6 +25,7 @@ def quick_login_view(request, role):
         'technician': 'tech_sidorov',
         'storekeeper': 'store_morozov',
         'trainee': 'trainee_smirnov',
+        'seller': 'seller_petrov',
     }
     
     username = role_user_map.get(role)
@@ -156,6 +157,20 @@ def dashboard_view(request):
         context['recent_orders'] = WorkOrder.objects.filter(status='completed').select_related('equipment', 'assigned_user')[:15]
         context['equipment_list'] = Equipment.objects.all()[:20]
         template = 'dashboards/trainee.html'
+        
+    elif user.is_seller:
+        from equipment.models import Equipment
+        from workorders.models import WorkOrder
+        from inventory.models import SparePart
+        
+        # Статистика для продавца
+        context['available_equipment'] = Equipment.objects.filter(status='active').count()
+        context['total_parts'] = SparePart.objects.count()
+        context['low_stock_parts'] = SparePart.objects.filter(current_stock__lte=F('min_stock')).count()
+        context['completed_orders'] = WorkOrder.objects.filter(status='completed').count()
+        context['recent_equipment'] = Equipment.objects.filter(status='active').order_by('-created_at')[:10]
+        context['top_parts'] = SparePart.objects.order_by('-current_stock')[:10]
+        template = 'dashboards/seller.html'
     else:
         template = 'dashboards/admin.html'
     

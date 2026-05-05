@@ -1,27 +1,54 @@
 ```
-# Database
-db.sqlite3
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
+*.py~
+*.py.class
+*.py.backup
+*.swp
+*.swo
+
+# Django
+*.log
+*.pot
+*.po
+*.mo
+*.db
+*.sqlite3
+*.sqlite3-journal
+media/
+staticfiles/
+.env
+.coverage
+htmlcov/
+coverage/
+.DS_Store
+Thumbs.db
+
+# Migration files (except the ones being tracked)
+!**/migrations/*.py
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# Dependencies
 venv/
 .venv/
 .env
 .env.local
 .env.*
-.env.local.*
-.python-version
-pip-log.txt
-pip-delete-this-directory.txt
+.env~*
+requirements.txt.bak
+Pipfile.lock
+poetry.lock
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
 # OS
 .DS_Store
