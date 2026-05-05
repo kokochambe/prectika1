@@ -7,27 +7,6 @@
 <p style="color: #666; margin-bottom: 1.5rem;">Доступ только на чтение: справочники, чек-листы, просмотр выполненных работ</p>
 
 <div class="card" style="margin-top: 1.5rem;">
-    <h2>📖 Учебные материалы</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-        <a href="/admin/equipment/equipment/" class="btn btn-primary">🔧 Реестр оборудования</a>
-        <a href="/admin/workorders/workorder/" class="btn btn-info">📋 Наряды-заказы</a>
-        <a href="/admin/inventory/sparepart/" class="btn btn-success">📦 Каталог запчастей</a>
-    </div>
-</div>
-
-<div class="card" style="margin-top: 1.5rem;">
-    <h2>🔄 Быстрое переключение ролей</h2>
-    <p style="color: #666; margin-bottom: 1rem;">Нажмите на роль для мгновенного входа без пароля:</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin-top: 1rem;">
-        <a href="{% url 'accounts:quick_login' 'admin' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">👨‍💼 Админ</a>
-        <a href="{% url 'accounts:quick_login' 'engineer' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">⚙️ Инженер</a>
-        <a href="{% url 'accounts:quick_login' 'technician' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">🔧 Техник</a>
-        <a href="{% url 'accounts:quick_login' 'storekeeper' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); color: white;">📦 Кладовщик</a>
-        <a href="{% url 'accounts:quick_login' 'trainee' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #2c3e50;">📚 Практикант</a>
-    </div>
-</div>
-
-<div class="card" style="margin-top: 1.5rem;">
     <h2>✅ Недавно выполненные работы</h2>
     <table>
         <thead>
