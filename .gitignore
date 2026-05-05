@@ -1,8 +1,11 @@
 ```
-# Database files
-*.sqlite3
+# Database
+db.sqlite3
 
-# Dependencies
+# Django migrations (if not already tracked)
+*/migrations/*.py
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -11,33 +14,15 @@ __pycache__/
 env/
 venv/
 .venv/
-.ENV
-.ENV.*
-.env
-.env.*
-.env.local
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
-
-# Logs
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
 *.log
-
-# OS generated files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
 ```
