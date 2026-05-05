@@ -28,4 +28,70 @@
         <a href="/admin/workorders/workorder/?status=new" class="btn btn-primary">Новые заявки</a>
     </div>
 </div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>🔄 Быстрое переключение ролей</h2>
+    <p style="color: #666; margin-bottom: 1rem;">Нажмите на роль для мгновенного входа без пароля:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin-top: 1rem;">
+        <a href="{% url 'accounts:quick_login' 'admin' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">👨‍💼 Админ</a>
+        <a href="{% url 'accounts:quick_login' 'engineer' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">⚙️ Инженер</a>
+        <a href="{% url 'accounts:quick_login' 'technician' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">🔧 Техник</a>
+        <a href="{% url 'accounts:quick_login' 'storekeeper' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); color: white;">📦 Кладовщик</a>
+        <a href="{% url 'accounts:quick_login' 'trainee' %}" class="btn btn-quick" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #2c3e50;">📚 Практикант</a>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>⏳ Заявки в ожидании</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Оборудование</th>
+                <th>Тип</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in pending_orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.equipment.inv_number }} - {{ order.equipment.name }}</td>
+                <td><span class="badge badge-{{ order.order_type }}">{{ order.get_order_type_display }}</span></td>
+                <td><span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span></td>
+                <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="text-align: center; color: #999;">Нет заявок в ожидании</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>🔧 Всё оборудование</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Инв. номер</th>
+                <th>Наименование</th>
+                <th>Цех</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for eq in all_equipment %}
+            <tr>
+                <td>{{ eq.inv_number }}</td>
+                <td>{{ eq.name }}</td>
+                <td>{{ eq.workshop|default:"-" }}</td>
+                <td><span class="badge badge-{{ eq.status }}">{{ eq.get_status_display }}</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" style="text-align: center; color: #999;">Нет данных</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

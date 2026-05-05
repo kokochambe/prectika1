@@ -2,34 +2,27 @@
 # Database
 db.sqlite3
 
-# Python
-*.pyc
+# Dependencies
+.venv/
+venv/
 __pycache__/
+*.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git/modules/
-.pytest_cache/
-.mypy_cache/
 
-# IDE
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
 .vscode/
 .idea/
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
 ```
