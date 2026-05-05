@@ -11,35 +11,19 @@ __pycache__/
 env/
 venv/
 .venv/
-.ENV
-.ENV.local
 .env
 .env.local
 .env.*
+.env.local.*
 .python-version
 pip-log.txt
 pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.DS_Store
-Thumbs.db
 
-# Django
-*.pot
-*.po
-*~
-.pytest_cache/
-htmlcov/
-.coverage.*
-.venv/
-venv/
-env/
+# IDE
+.vscode/
+.idea/
+
+# OS
 .DS_Store
 Thumbs.db
 ```

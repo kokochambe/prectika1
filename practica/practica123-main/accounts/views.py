@@ -6,6 +6,7 @@ from django.db.models import F, Count, Q
 from django.utils import timezone
 from datetime import timedelta
 from .models import User
+from .forms import RegistrationForm
 
 
 def home_view(request):
@@ -143,9 +144,9 @@ def dashboard_view(request):
         from inventory.models import SparePart, PartRequest
         
         context['low_stock_parts'] = SparePart.objects.filter(current_stock__lte=F('min_stock'))
-        context['pending_requests'] = PartRequest.objects.filter(status='requested').select_related('part', 'requested_by')[:10]
+        context['pending_requests'] = PartRequest.objects.filter(status='requested').select_related('spare_part', 'requested_by')[:10]
         context['all_parts'] = SparePart.objects.all()[:20]
-        context['recent_requests'] = PartRequest.objects.select_related('part', 'requested_by').order_by('-created_at')[:10]
+        context['recent_requests'] = PartRequest.objects.select_related('spare_part', 'requested_by').order_by('-id')[:10]
         template = 'dashboards/storekeeper.html'
         
     elif user.is_trainee:
