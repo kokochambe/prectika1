@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Панель практиканта{% endblock %}
+
+{% block content %}
+<h1 style="margin-bottom: 1.5rem; color: #2c3e50;">📚 Панель ученика / Практиканта</h1>
+<p style="color: #666; margin-bottom: 1.5rem;">Доступ только на чтение: справочники, чек-листы, просмотр выполненных работ</p>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>📖 Учебные материалы</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <a href="/admin/equipment/equipment/" class="btn btn-primary">🔧 Реестр оборудования</a>
+        <a href="/admin/workorders/workorder/" class="btn btn-info">📋 Наряды-заказы</a>
+        <a href="/admin/inventory/sparepart/" class="btn btn-success">📦 Каталог запчастей</a>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>✅ Недавно выполненные работы</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Оборудование</th>
+                <th>Тип работ</th>
+                <th>Исполнитель</th>
+                <th>Дата завершения</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in recent_orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.equipment.inv_number }} - {{ order.equipment.name }}</td>
+                <td><span class="badge badge-{{ order.order_type }}">{{ order.get_order_type_display }}</span></td>
+                <td>{{ order.assigned_user.username|default:"-" }}</td>
+                <td>{{ order.completed_at|date:"d.m.Y H:i"|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="text-align: center; color: #999;">Нет данных</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>🔧 Оборудование (справочник)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Инв. номер</th>
+                <th>Наименование</th>
+                <th>Модель</th>
+                <th>Цех</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for eq in equipment_list %}
+            <tr>
+                <td>{{ eq.inv_number }}</td>
+                <td>{{ eq.name }}</td>
+                <td>{{ eq.model|default:"-" }}</td>
+                <td>{{ eq.workshop|default:"-" }}</td>
+                <td><span class="badge badge-{{ eq.status }}">{{ eq.get_status_display }}</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="text-align: center; color: #999;">Нет данных</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
