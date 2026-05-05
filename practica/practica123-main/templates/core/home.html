@@ -11,7 +11,7 @@
     
     <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem;">
         <a href="{% url 'accounts:login' %}" class="btn btn-primary" style="padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);">
-            🔐 Вход в систему
+            🔐 Вход по паролю
         </a>
         <a href="{% url 'accounts:register' %}" class="btn btn-success" style="padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
             📝 Регистрация
@@ -19,10 +19,47 @@
     </div>
 </div>
 
+<!-- Быстрые действия без пароля -->
 <div style="margin-bottom: 3rem;">
-    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2.5rem; font-size: 2rem;">👥 Роли в системе</h2>
+    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 1rem; font-size: 2rem;">⚡ Быстрый вход (без пароля)</h2>
+    <p style="text-align: center; color: #7f8c8d; margin-bottom: 2rem; font-size: 1.1rem;">Нажмите на роль для мгновенного входа в систему</p>
+    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <a href="{% url 'accounts:quick_login' 'admin' %}" class="stat-card blue" style="text-align: center; text-decoration: none; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">👨‍💼</div>
+            <div class="stat-value" style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #2c3e50;">Администратор</div>
+            <div style="font-size: 0.85rem; color: #7f8c8d;">Полный доступ</div>
+        </a>
+        
+        <a href="{% url 'accounts:quick_login' 'engineer' %}" class="stat-card green" style="text-align: center; text-decoration: none; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">⚙️</div>
+            <div class="stat-value" style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #2c3e50;">Инженер ОТиР</div>
+            <div style="font-size: 0.85rem; color: #7f8c8d;">Планирование ТО</div>
+        </a>
+        
+        <a href="{% url 'accounts:quick_login' 'technician' %}" class="stat-card orange" style="text-align: center; text-decoration: none; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">🔧</div>
+            <div class="stat-value" style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #2c3e50;">Техник</div>
+            <div style="font-size: 0.85rem; color: #7f8c8d;">Выполнение работ</div>
+        </a>
+        
+        <a href="{% url 'accounts:quick_login' 'storekeeper' %}" class="stat-card red" style="text-align: center; text-decoration: none; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">📦</div>
+            <div class="stat-value" style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #2c3e50;">Кладовщик</div>
+            <div style="font-size: 0.85rem; color: #7f8c8d;">Склад запчастей</div>
+        </a>
+        
+        <a href="{% url 'accounts:quick_login' 'trainee' %}" class="stat-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); text-align: center; text-decoration: none; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">📚</div>
+            <div class="stat-value" style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #2c3e50;">Практикант</div>
+            <div style="font-size: 0.85rem; color: #555;">Только чтение</div>
+        </a>
+    </div>
+</div>
+
+<div style="margin-bottom: 3rem;">
+    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2.5rem; font-size: 2rem;">👥 Описание ролей</h2>
     <div class="stats-grid">
-        <div class="stat-card blue" style="text-align: left; cursor: pointer;">
+        <div class="stat-card blue" style="text-align: left;">
             <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">👨‍💼</div>
             <div class="stat-value" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Администратор</div>
             <div class="stat-label" style="text-align: left; margin-top: 1rem; font-size: 0.95rem; line-height: 1.5;">
@@ -30,7 +67,7 @@
             </div>
         </div>
         
-        <div class="stat-card green" style="text-align: left; cursor: pointer;">
+        <div class="stat-card green" style="text-align: left;">
             <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">⚙️</div>
             <div class="stat-value" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Инженер ОТиР</div>
             <div class="stat-label" style="text-align: left; margin-top: 1rem; font-size: 0.95rem; line-height: 1.5;">
@@ -38,7 +75,7 @@
             </div>
         </div>
         
-        <div class="stat-card orange" style="text-align: left; cursor: pointer;">
+        <div class="stat-card orange" style="text-align: left;">
             <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🔧</div>
             <div class="stat-value" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Техник</div>
             <div class="stat-label" style="text-align: left; margin-top: 1rem; font-size: 0.95rem; line-height: 1.5;">
@@ -46,7 +83,7 @@
             </div>
         </div>
         
-        <div class="stat-card red" style="text-align: left; cursor: pointer;">
+        <div class="stat-card red" style="text-align: left;">
             <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">📦</div>
             <div class="stat-value" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Кладовщик</div>
             <div class="stat-label" style="text-align: left; margin-top: 1rem; font-size: 0.95rem; line-height: 1.5;">
@@ -54,7 +91,7 @@
             </div>
         </div>
         
-        <div class="stat-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); text-align: left; cursor: pointer;">
+        <div class="stat-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); text-align: left;">
             <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">📚</div>
             <div class="stat-value" style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #2c3e50;">Практикант</div>
             <div class="stat-label" style="text-align: left; margin-top: 1rem; font-size: 0.95rem; line-height: 1.5; color: #555;">
@@ -92,5 +129,55 @@
             <p style="color: #666; line-height: 1.6;">Разграничение прав доступа в соответствии с должностными обязанностями</p>
         </div>
     </div>
+</div>
+
+<!-- Подсказки по тестовым учётным записям -->
+<div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, #e8f4f8 0%, #f0f9ff 100%); border-left: 4px solid #3498db;">
+    <h2 style="text-align: center; font-size: 1.5rem; color: #2c3e50;">📋 Тестовые учётные записи для входа по паролю</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <div style="padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">👨‍💼</div>
+            <div style="font-weight: 600; color: #2c3e50;">Администратор</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                Логин: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">admin_otir</code><br>
+                Пароль: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">admin123</code>
+            </div>
+        </div>
+        <div style="padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚙️</div>
+            <div style="font-weight: 600; color: #2c3e50;">Инженер ОТиР</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                Логин: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">eng_ivanov</code><br>
+                Пароль: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">engineer123</code>
+            </div>
+        </div>
+        <div style="padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔧</div>
+            <div style="font-weight: 600; color: #2c3e50;">Техник</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                Логин: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">tech_sidorov</code><br>
+                Пароль: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">tech123</code>
+            </div>
+        </div>
+        <div style="padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📦</div>
+            <div style="font-weight: 600; color: #2c3e50;">Кладовщик</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                Логин: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">store_morozov</code><br>
+                Пароль: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">store123</code>
+            </div>
+        </div>
+        <div style="padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📚</div>
+            <div style="font-weight: 600; color: #2c3e50;">Практикант</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                Логин: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">trainee_smirnov</code><br>
+                Пароль: <code style="background: #ecf0f1; padding: 2px 6px; border-radius: 4px;">trainee123</code>
+            </div>
+        </div>
+    </div>
+    <p style="text-align: center; margin-top: 1.5rem; font-style: italic; color: #7f8c8d;">
+        💡 <strong>Совет:</strong> Используйте кнопки быстрого входа выше для моментального доступа без ввода пароля!
+    </p>
 </div>
 {% endblock %}

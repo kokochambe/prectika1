@@ -17,13 +17,13 @@ def home_view(request):
 
 def quick_login_view(request, role):
     """Быстрый вход без пароля для демонстрации"""
-    # Маппинг ролей на тестовых пользователей
+    # Маппинг ролей на тестовых пользователей с новыми логинами
     role_user_map = {
-        'admin': 'admin1',
-        'engineer': 'engineer1',
-        'technician': 'technician1',
-        'storekeeper': 'storekeeper1',
-        'trainee': 'intern1',
+        'admin': 'admin_otir',
+        'engineer': 'eng_ivanov',
+        'technician': 'tech_sidorov',
+        'storekeeper': 'store_morozov',
+        'trainee': 'trainee_smirnov',
     }
     
     username = role_user_map.get(role)
