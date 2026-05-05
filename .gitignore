@@ -2,9 +2,6 @@
 # Database
 db.sqlite3
 
-# Django migrations (if not already tracked)
-*/migrations/*.py
-
 # Python
 __pycache__/
 *.pyc
@@ -14,6 +11,12 @@ __pycache__/
 env/
 venv/
 .venv/
+.ENV
+.ENV.local
+.env
+.env.local
+.env.*
+.python-version
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
@@ -25,4 +28,18 @@ coverage.xml
 *.cover
 *.log
 .DS_Store
+Thumbs.db
+
+# Django
+*.pot
+*.po
+*~
+.pytest_cache/
+htmlcov/
+.coverage.*
+.venv/
+venv/
+env/
+.DS_Store
+Thumbs.db
 ```
