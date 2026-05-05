@@ -1,0 +1,772 @@
+[
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 3,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 3,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 3,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 3,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 2,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 2,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 2,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 2,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add Пользователь",
+    "content_type": 6,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change Пользователь",
+    "content_type": 6,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete Пользователь",
+    "content_type": 6,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view Пользователь",
+    "content_type": 6,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add Оборудование",
+    "content_type": 7,
+    "codename": "add_equipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change Оборудование",
+    "content_type": 7,
+    "codename": "change_equipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete Оборудование",
+    "content_type": 7,
+    "codename": "delete_equipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view Оборудование",
+    "content_type": 7,
+    "codename": "view_equipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add График ТО",
+    "content_type": 8,
+    "codename": "add_maintenanceschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change График ТО",
+    "content_type": 8,
+    "codename": "change_maintenanceschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete График ТО",
+    "content_type": 8,
+    "codename": "delete_maintenanceschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view График ТО",
+    "content_type": 8,
+    "codename": "view_maintenanceschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add Наряд-заказ",
+    "content_type": 9,
+    "codename": "add_workorder"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change Наряд-заказ",
+    "content_type": 9,
+    "codename": "change_workorder"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete Наряд-заказ",
+    "content_type": 9,
+    "codename": "delete_workorder"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view Наряд-заказ",
+    "content_type": 9,
+    "codename": "view_workorder"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add Отчёт о работах",
+    "content_type": 10,
+    "codename": "add_workreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change Отчёт о работах",
+    "content_type": 10,
+    "codename": "change_workreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete Отчёт о работах",
+    "content_type": 10,
+    "codename": "delete_workreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view Отчёт о работах",
+    "content_type": 10,
+    "codename": "view_workreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add Запчасть",
+    "content_type": 12,
+    "codename": "add_sparepart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change Запчасть",
+    "content_type": 12,
+    "codename": "change_sparepart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete Запчасть",
+    "content_type": 12,
+    "codename": "delete_sparepart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view Запчасть",
+    "content_type": 12,
+    "codename": "view_sparepart"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add Заявка на запчасти",
+    "content_type": 11,
+    "codename": "add_partrequest"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change Заявка на запчасти",
+    "content_type": 11,
+    "codename": "change_partrequest"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete Заявка на запчасти",
+    "content_type": 11,
+    "codename": "delete_partrequest"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view Заявка на запчасти",
+    "content_type": 11,
+    "codename": "view_partrequest"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "accounts",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "equipment",
+    "model": "equipment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "equipment",
+    "model": "maintenanceschedule"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "workorders",
+    "model": "workorder"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "workorders",
+    "model": "workreport"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "inventory",
+    "model": "partrequest"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "inventory",
+    "model": "sparepart"
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$6mXxa8ezy1AxXdIfkF8zuF$G869Y4bXymyw1WA11LDvKyqV7BFrNUuP2gUVYkldqoI=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "date_joined": "2026-05-05T12:03:03.812Z",
+    "role": "trainee",
+    "department": null,
+    "phone": null,
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:05.667Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$JRaqCRmHioaJZY5MDiX4lx$4kgTZS8/ocrx2+e07C51M6TLEWjvivS2IDxHcQ0Yj7c=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "admin_otir",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:15.230Z",
+    "role": "admin",
+    "department": "Управление ОТК",
+    "phone": "+79001112200",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:15.230Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$IeLLNW2YVe4oerhgapgx0l$QQbeXjXpkhkvUvw/G2SwH5HELKDUxhVumkLF+06RoEk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "eng_ivanov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:17.211Z",
+    "role": "engineer",
+    "department": "Механика",
+    "phone": "+79001112201",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:17.211Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$bLBcao8ckza2EtO7ipWJg6$lHNuDVZtQrfLps+61HXaw6BHuBeJRUKYFy+IWMxlx48=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "eng_petrov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:19.092Z",
+    "role": "engineer",
+    "department": "Электрика",
+    "phone": "+79001112202",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:19.092Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$4GIsju6dSIbB8gdOeDuB6b$U9YzSs0Li/VfJm5uhyKMEck2TrQQE9hf9WyqX5yKhpA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tech_sidorov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:20.909Z",
+    "role": "technician",
+    "department": "Цех 1",
+    "phone": "+79001112203",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:20.910Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$yDy9W3t4oaJ0VfA6AlsrZb$vDEKo4/9sk+AeDrIw2T+Q7faSBNYFe05wnxhOyTBfVw=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tech_kuznetsov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:22.730Z",
+    "role": "technician",
+    "department": "Цех 2",
+    "phone": "+79001112204",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:22.730Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$6lQyb8vFrouQv525Nzoobg$vYv/mDvyBVfftvliQxFhcHu2U6b+LJKNl+jIS7q4TLs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tech_popov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:24.506Z",
+    "role": "technician",
+    "department": "Цех 1",
+    "phone": "+79001112205",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:24.506Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$pvQ27giwxJ4S2pGZItDz80$EL7ZuU4+fA9TfjZYtRHZqhKiPIKIdLaFIn/ec16MOiQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "store_morozov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:26.429Z",
+    "role": "storekeeper",
+    "department": "Склад A",
+    "phone": "+79001112212",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:26.429Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$byZNcWr4rlwp9gEtre5lDb$TZ3C7jU6Q1s1vH7iqaFj7thSqZkQls6sz43cT85GTGU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "store_novikov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:28.328Z",
+    "role": "storekeeper",
+    "department": "Склад B",
+    "phone": "+79001112213",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:28.328Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$LSlWi8wi6lh0R5wpT6C69I$79wQnUMtrB2Q2i6aoBO9m/1LjiMhQgFKEtnM31ZvcD8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "trainee_smirnov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:30.268Z",
+    "role": "trainee",
+    "department": "Практика",
+    "phone": "+79001112215",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:30.268Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$ajYdy7SN7fLA7txZ79u1cE$f+/nmdJtTVtoaVdu6NX1h9cTvuMH8vvFt7wcna4xj40=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "trainee_fedorov",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "date_joined": "2026-05-05T12:03:32.089Z",
+    "role": "trainee",
+    "department": "Практика",
+    "phone": "+79001112216",
+    "is_active": true,
+    "created_at": "2026-05-05T12:03:32.089Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
