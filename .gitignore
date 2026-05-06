@@ -1,44 +1,38 @@
 ```
-# Database
+# Django specific
 db.sqlite3
-
-# Compiled Python files
-*.pyc
+*.sqlite3
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.mo
+*.pot
+*.log
+local_settings.py
+db.sqlite3-journal
 
-# Virtual environments
-venv/
-.venv/
+# Migrations
+**/migrations/
+
+# Environment
 .env
 .env.local
+.env.*
+.venv/
+venv/
+env/
 
-# IDE specific
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Logs
-*.log
-
-# Coverage reports
-coverage/
-htmlcov/
+# Dependencies
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
 .coverage
-
-# OS generated files
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
 .DS_Store
-Thumbs.db
-
-# Build outputs
-dist/
-build/
-target/
-
-# Temporary files
-*.tmp
-*.temp
-
-# Environment variables
-.env*
 ```
