@@ -109,6 +109,8 @@ def dashboard_view(request):
         from equipment.models import Equipment
         from workorders.models import WorkOrder
         from inventory.models import SparePart
+        from django.db.models import F, Count, Q, Avg
+        from datetime import timedelta
         
         context['total_equipment'] = Equipment.objects.count()
         context['active_equipment'] = Equipment.objects.filter(status='active').count()
@@ -120,6 +122,50 @@ def dashboard_view(request):
         context['low_stock_parts'] = SparePart.objects.filter(current_stock__lte=F('min_stock')).count()
         context['recent_orders'] = WorkOrder.objects.select_related('equipment', 'assigned_user').order_by('-created_at')[:10]
         context['users_by_role'] = User.objects.values('role').annotate(count=Count('id'))
+        
+        # Расчет дополнительных метрик для аналитики
+        total_completed = WorkOrder.objects.filter(status='completed').count()
+        total_all = WorkOrder.objects.count()
+        if total_all > 0:
+            context['efficiency_rate'] = round((total_completed / total_all) * 100)
+        else:
+            context['efficiency_rate'] = 0
+            
+        # Среднее время выполнения (в часах)
+        completed_with_time = WorkOrder.objects.filter(
+            status='completed',
+            started_at__isnull=False,
+            completed_at__isnull=False
+        )
+        if completed_with_time.exists():
+            avg_time = 0
+            count = 0
+            for order in completed_with_time:
+                if order.started_at and order.completed_at:
+                    delta = order.completed_at - order.started_at
+                    avg_time += delta.total_seconds() / 3600
+                    count += 1
+            if count > 0:
+                context['avg_completion_time'] = round(avg_time / count, 1)
+            else:
+                context['avg_completion_time'] = 0
+        else:
+            context['avg_completion_time'] = 0
+            
+        # Загрузка персонала (отношение активных нарядов к количеству техников)
+        technicians_count = User.objects.filter(role='technician').count()
+        active_orders = WorkOrder.objects.filter(status__in=['new', 'assigned', 'in_progress']).count()
+        if technicians_count > 0:
+            context['workload_percent'] = min(round((active_orders / technicians_count) * 25), 100)
+        else:
+            context['workload_percent'] = 0
+            
+        # Готовность оборудования
+        if Equipment.objects.count() > 0:
+            context['equipment_uptime'] = round((Equipment.objects.filter(status='active').count() / Equipment.objects.count()) * 100)
+        else:
+            context['equipment_uptime'] = 0
+            
         template = 'dashboards/admin.html'
         
     elif user.is_engineer:
@@ -134,11 +180,22 @@ def dashboard_view(request):
         template = 'dashboards/engineer.html'
         
     elif user.is_technician:
-        from workorders.models import WorkOrder
+        from workorders.models import WorkOrder, TaskNotification
         
+        # Мои наряды с разными статусами для отображения workflow
         context['my_orders'] = WorkOrder.objects.filter(assigned_user=user).exclude(status='completed').select_related('equipment')
         context['completed_orders'] = WorkOrder.objects.filter(assigned_user=user, status='completed').count()
         context['all_my_orders'] = WorkOrder.objects.filter(assigned_user=user).select_related('equipment').order_by('-created_at')[:15]
+        
+        # Новые уведомления от админа
+        context['pending_notifications'] = TaskNotification.objects.filter(worker=user, status='pending').select_related('work_order', 'created_by')[:10]
+        context['active_notifications'] = TaskNotification.objects.filter(worker=user, status__in=['accepted', 'in_progress']).select_related('work_order', 'created_by')[:10]
+        
+        # Статистика по статусам нарядов
+        context['new_orders_count'] = WorkOrder.objects.filter(assigned_user=user, status='new').count()
+        context['in_progress_count'] = WorkOrder.objects.filter(assigned_user=user, status='in_progress').count()
+        context['pending_parts_count'] = WorkOrder.objects.filter(assigned_user=user, status='pending_parts').count()
+        
         template = 'dashboards/technician.html'
         
     elif user.is_storekeeper:

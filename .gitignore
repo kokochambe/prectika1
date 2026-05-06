@@ -1,29 +1,23 @@
 ```
-# Django specific
+# Database
 db.sqlite3
-*.sqlite3
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.mo
-*.pot
-*.log
-local_settings.py
-db.sqlite3-journal
-
-# Migrations
-**/migrations/
-
-# Environment
+*.py~
+*.pyc~
+*.pyo~
+.Python
+env/
+venv/
+.venv/
+.ENV
 .env
 .env.local
 .env.*
-.venv/
-venv/
-env/
-
-# Dependencies
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
@@ -34,5 +28,19 @@ nosetests.xml
 coverage.xml
 *.cover
 *.log
+*.pot
+*.mo
+MandatoryFile.txt
+*~
+.recommenders
 .DS_Store
+Thumbs.db
+
+# Django
+*.log
+local_settings.py
+db.sqlite3-journal
+media/
+staticfiles/
+.env
 ```

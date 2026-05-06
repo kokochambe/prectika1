@@ -32,15 +32,35 @@
     </div>
 </div>
 
-<!-- Диаграммы -->
+<!-- Улучшенная диаграмма -->
 <div class="card" style="margin-top: 1.5rem;">
     <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">📈 Аналитика системы</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
-        <div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
             <canvas id="statusChart"></canvas>
         </div>
-        <div>
+        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
             <canvas id="rolesChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- Дополнительные метрики -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white;">
+            <div style="font-size: 2rem; font-weight: bold;">{{ efficiency_rate|default:"0" }}%</div>
+            <div style="font-size: 0.9rem; opacity: 0.9;">Эффективность выполнения</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white;">
+            <div style="font-size: 2rem; font-weight: bold;">{{ avg_completion_time|default:"0" }}</div>
+            <div style="font-size: 0.9rem; opacity: 0.9;">Среднее время (часов)</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white;">
+            <div style="font-size: 2rem; font-weight: bold;">{{ workload_percent|default:"0" }}%</div>
+            <div style="font-size: 0.9rem; opacity: 0.9;">Загрузка персонала</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white;">
+            <div style="font-size: 2rem; font-weight: bold;">{{ equipment_uptime|default:"0" }}%</div>
+            <div style="font-size: 0.9rem; opacity: 0.9;">Готовность оборудования</div>
         </div>
     </div>
 </div>
@@ -128,28 +148,85 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Диаграмма статусов нарядов
+// Улучшенная диаграмма статусов нарядов с анимацией и градиентами
 const statusCtx = document.getElementById('statusChart').getContext('2d');
+
+// Создаем градиенты для диаграммы
+const gradientNew = statusCtx.createLinearGradient(0, 0, 0, 400);
+gradientNew.addColorStop(0, '#ff6b6b');
+gradientNew.addColorStop(1, '#ee5a5a');
+
+const gradientInProgress = statusCtx.createLinearGradient(0, 0, 0, 400);
+gradientInProgress.addColorStop(0, '#feca57');
+gradientInProgress.addColorStop(1, '#ff9f43');
+
+const gradientCompleted = statusCtx.createLinearGradient(0, 0, 0, 400);
+gradientCompleted.addColorStop(0, '#1dd1a1');
+gradientCompleted.addColorStop(1, '#10ac84');
+
 new Chart(statusCtx, {
     type: 'doughnut',
     data: {
         labels: ['Новые', 'В работе', 'Выполнено'],
         datasets: [{
             data: [{{ new_orders|default:0 }}, {{ in_progress_orders|default:0 }}, {{ completed_orders|default:0 }}],
-            backgroundColor: ['#e74c3c', '#f39c12', '#27ae60']
+            backgroundColor: [gradientNew, gradientInProgress, gradientCompleted],
+            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+            borderWidth: 3,
+            hoverOffset: 15
         }]
     },
     options: {
         responsive: true,
+        maintainAspectRatio: true,
         plugins: {
-            legend: { position: 'bottom' },
-            title: { display: true, text: 'Статусы нарядов-заказов' }
-        }
+            legend: { 
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    font: { size: 14, weight: 'bold' },
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            },
+            title: { 
+                display: true, 
+                text: '📊 Статусы нарядов-заказов',
+                font: { size: 18, weight: 'bold' },
+                padding: 20
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                padding: 15,
+                titleFont: { size: 16 },
+                bodyFont: { size: 14 },
+                callbacks: {
+                    label: function(context) {
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = ((context.raw / total) * 100).toFixed(1);
+                        return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                    }
+                }
+            }
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true,
+            duration: 1500,
+            easing: 'easeOutQuart'
+        },
+        cutout: '65%'
     }
 });
 
-// Диаграмма ролей пользователей
+// Улучшенная диаграмма ролей пользователей
 const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+
+// Градиент для столбцов
+const gradientBar = rolesCtx.createLinearGradient(0, 0, 0, 400);
+gradientBar.addColorStop(0, '#667eea');
+gradientBar.addColorStop(1, '#764ba2');
+
 new Chart(rolesCtx, {
     type: 'bar',
     data: {
@@ -157,17 +234,69 @@ new Chart(rolesCtx, {
         datasets: [{
             label: 'Количество пользователей',
             data: [{% for role_stat in users_by_role %}{{ role_stat.count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
-            backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c']
+            backgroundColor: [
+                'rgba(52, 152, 219, 0.8)',
+                'rgba(46, 204, 113, 0.8)',
+                'rgba(231, 76, 60, 0.8)',
+                'rgba(243, 156, 18, 0.8)',
+                'rgba(155, 89, 182, 0.8)',
+                'rgba(26, 188, 156, 0.8)'
+            ],
+            borderColor: [
+                'rgba(52, 152, 219, 1)',
+                'rgba(46, 204, 113, 1)',
+                'rgba(231, 76, 60, 1)',
+                'rgba(243, 156, 18, 1)',
+                'rgba(155, 89, 182, 1)',
+                'rgba(26, 188, 156, 1)'
+            ],
+            borderWidth: 2,
+            borderRadius: 10,
+            borderSkipped: false
         }]
     },
     options: {
         responsive: true,
+        maintainAspectRatio: true,
         plugins: {
             legend: { display: false },
-            title: { display: true, text: 'Распределение пользователей по ролям' }
+            title: { 
+                display: true, 
+                text: '👥 Распределение пользователей по ролям',
+                font: { size: 18, weight: 'bold' },
+                padding: 20
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                padding: 15,
+                titleFont: { size: 16 },
+                bodyFont: { size: 14 },
+                cornerRadius: 10
+            }
         },
         scales: {
-            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+            y: { 
+                beginAtZero: true, 
+                ticks: { 
+                    stepSize: 1,
+                    font: { size: 12 }
+                },
+                grid: {
+                    color: 'rgba(0, 0, 0, 0.05)'
+                }
+            },
+            x: {
+                ticks: {
+                    font: { size: 12 }
+                },
+                grid: {
+                    display: false
+                }
+            }
+        },
+        animation: {
+            duration: 1500,
+            easing: 'easeOutQuart'
         }
     }
 });
