@@ -12,12 +12,13 @@ class User(AbstractUser):
         ('storekeeper', 'Кладовщик'),
         ('trainee', 'Ученик / Практикант'),
         ('seller', 'Продавец'),
+        ('client', 'Клиент'),
     ]
     
     role = models.CharField(
         max_length=20,
         choices=ROLE_CHOICES,
-        default='trainee',
+        default='client',
         verbose_name='Роль'
     )
     department = models.CharField(
@@ -66,3 +67,7 @@ class User(AbstractUser):
     @property
     def is_seller(self):
         return self.role == 'seller'
+    
+    @property
+    def is_client(self):
+        return self.role == 'client'

@@ -277,6 +277,18 @@ def dashboard_view(request):
         
         # Перенаправляем продавца на панель продаж
         return redirect('sales:dashboard')
+    
+    elif user.role == 'client':
+        from equipment.models import Equipment
+        from workorders.models import WorkOrder
+        
+        # Панель клиента: просмотр оборудования и история заявок
+        context['equipment_list'] = Equipment.objects.filter(status='active')[:20]
+        context['my_requests'] = WorkOrder.objects.filter(created_by=user).order_by('-created_at')[:15] if user.is_authenticated else []
+        context['active_requests_count'] = WorkOrder.objects.filter(created_by=user, status__in=['new', 'assigned', 'in_progress']).count() if user.is_authenticated else 0
+        context['completed_requests_count'] = WorkOrder.objects.filter(created_by=user, status='completed').count() if user.is_authenticated else 0
+        
+        template = 'dashboards/client.html'
     else:
         template = 'dashboards/admin.html'
     
