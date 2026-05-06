@@ -231,11 +231,11 @@ def dashboard_view(request):
         
         # Данные для форм инженера
         context['create_form_equipment'] = Equipment.objects.all()
-        context['technicians'] = User.objects.filter(is_technician=True)
+        context['technicians'] = User.objects.filter(role='technician')
         
         template = 'dashboards/engineer.html'
         
-    elif user.is_technician:
+    elif user.role == 'technician':
         from workorders.models import WorkOrder, TaskNotification
         
         # Мои наряды с разными статусами для отображения workflow
@@ -254,7 +254,7 @@ def dashboard_view(request):
         
         template = 'dashboards/technician.html'
         
-    elif user.is_storekeeper:
+    elif user.role == 'storekeeper':
         from inventory.models import SparePart, PartRequest
         from django.db.models import F
         
@@ -264,7 +264,7 @@ def dashboard_view(request):
         context['recent_requests'] = PartRequest.objects.select_related('spare_part', 'requested_by').order_by('-id')[:10]
         template = 'dashboards/storekeeper.html'
         
-    elif user.is_trainee:
+    elif user.role == 'trainee':
         from equipment.models import Equipment
         from workorders.models import WorkOrder
         
@@ -272,7 +272,7 @@ def dashboard_view(request):
         context['equipment_list'] = Equipment.objects.all()[:20]
         template = 'dashboards/trainee.html'
         
-    elif user.is_seller:
+    elif user.role == 'seller':
         from sales.models import Sale
         
         # Перенаправляем продавца на панель продаж
