@@ -9,6 +9,25 @@ from .forms import AssignTaskForm, CreateWorkOrderForm
 
 
 @login_required
+def create_work_order(request):
+    """Создание наряда-заказа (для клиента)"""
+    if request.method == 'POST':
+        form = CreateWorkOrderForm(request.POST)
+        if form.is_valid():
+            work_order = form.save(commit=False)
+            work_order.created_by = request.user
+            work_order.status = 'new'
+            work_order.save()
+            
+            messages.success(request, f'✅ Заявка #{work_order.id} успешно создана!')
+            return redirect('accounts:dashboard')
+    else:
+        form = CreateWorkOrderForm()
+    
+    return render(request, 'workorders/create.html', {'form': form})
+
+
+@login_required
 def admin_assign_task(request):
     """Администратор назначает задачу технику"""
     if not request.user.is_admin:
