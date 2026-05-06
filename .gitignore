@@ -1,6 +1,6 @@
 ```
-# Database files
-*.sqlite3
+# Database
+db.sqlite3
 
 # Python
 __pycache__/
@@ -12,29 +12,77 @@ env/
 venv/
 .venv/
 .ENV
+.env
+*.env
+.env.local
+.env.*
+.env.local.*
 .python-version
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
+.python-history
 .coverage
 .coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+htmlcov/
+.tox/
+.nox/
+.cover/
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+
+# Logs
 *.log
-.git/modules/
+
+# OS generated files
 .DS_Store
-.hg/
-.svn/
-.wafpickle-*
-config.env
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+*:Zone.Identifier
+desktop.ini
+*.nfs*
+*.swp
+*.swo
+*~
 
 # IDE
 .vscode/
 .idea/
+*.tm_properties
+nbproject/
+nbbuild/
+nbdist/
+.nb-gradle/
 
-# OS
-.DS_Store
-Thumbs.db
+# Build outputs
+dist/
+build/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+wheels/
+*.whl
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg
+
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.hypothesis/
+
+# Environment specific
+.env
+.env.local
+.env.*
 ```
