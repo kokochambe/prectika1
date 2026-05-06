@@ -2,44 +2,39 @@
 # Database files
 *.sqlite3
 
-# Environment
-.env
-.env.local
-*.env.*
-
-# Dependencies
-node_modules/
-.venv/
-venv/
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+.DS_Store
+.hg/
+.svn/
+.wafpickle-*
+config.env
 
-# Build artifacts
-dist/
-build/
-*.egg-info/
-
-# Editors
+# IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# Logs
-*.log
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Coverage
-.coverage
-coverage/
-htmlcov/
-
-# Temp files
-*.tmp
-*.temp
 ```
