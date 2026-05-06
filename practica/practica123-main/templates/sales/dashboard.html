@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}Панель Продаж - Система ТОиР{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="color: #2c3e50;">💰 Панель продаж</h1>
+        <div style="display: flex; gap: 1rem;">
+            <a href="{% url 'sales:create_sale' %}" class="btn btn-primary">➕ Новая продажа</a>
+            <button onclick="exportSales()" class="btn btn-success">📥 Экспорт продаж (CSV)</button>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card blue">
+            <div class="stat-value">{{ total_sales }}</div>
+            <div class="stat-label">Всего продаж</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-value">{{ total_revenue|floatformat:2 }} ₽</div>
+            <div class="stat-label">Общая выручка</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-value">{{ today_sales }}</div>
+            <div class="stat-label">Продаж сегодня</div>
+        </div>
+        <div class="stat-card purple">
+            <div class="stat-value">{{ top_equipment.count }}</div>
+            <div class="stat-label">Товаров в каталоге</div>
+        </div>
+    </div>
+
+    <!-- Диаграммы -->
+    <div class="card" style="margin-bottom: 2rem;">
+        <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">📊 Аналитика продаж</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+            <div>
+                <canvas id="salesTypeChart"></canvas>
+            </div>
+            <div>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Последние продажи -->
+    <div class="card" style="margin-bottom: 2rem;">
+        <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">📋 Последние продажи</h2>
+        <div style="overflow-x: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Тип</th>
+                        <th>Товар/Услуга</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                        <th>Клиент</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in recent_sales %}
+                    <tr>
+                        <td><strong>#{{ sale.id }}</strong></td>
+                        <td>
+                            {% if sale.sale_type == 'equipment' %}
+                                <span class="badge badge-blue">Оборудование</span>
+                            {% elif sale.sale_type == 'spare_part' %}
+                                <span class="badge badge-green">Запчасть</span>
+                            {% else %}
+                                <span class="badge badge-purple">Услуга</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if sale.sale_type == 'equipment' and sale.equipment %}
+                                {{ sale.equipment.name }}
+                            {% elif sale.sale_type == 'spare_part' and sale.spare_part %}
+                                {{ sale.spare_part.name }}
+                            {% elif sale.sale_type == 'service' %}
+                                {{ sale.service_name }}
+                            {% endif %}
+                        </td>
+                        <td>{{ sale.quantity }}</td>
+                        <td>{{ sale.price|floatformat:2 }} ₽</td>
+                        <td style="font-weight: bold; color: #27ae60;">{{ sale.total_amount|floatformat:2 }} ₽</td>
+                        <td>{{ sale.customer_name|default:"-" }}</td>
+                        <td>{{ sale.created_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" style="text-align: center; color: #999;">Пока нет продаж</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Доступные товары -->
+    <div class="card">
+        <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">🛒 Доступные товары</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div>
+                <h3 style="color: #3498db; margin-bottom: 1rem;">Оборудование</h3>
+                <ul style="list-style: none; padding: 0;">
+                    {% for eq in top_equipment %}
+                    <li style="padding: 0.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                        <span>{{ eq.name }}</span>
+                        <span style="color: #27ae60; font-weight: bold;">в наличии</span>
+                    </li>
+                    {% empty %}
+                    <li style="color: #999;">Нет оборудования</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: #2ecc71; margin-bottom: 1rem;">Запчасти</h3>
+                <ul style="list-style: none; padding: 0;">
+                    {% for part in top_parts %}
+                    <li style="padding: 0.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                        <span>{{ part.name }}</span>
+                        <span style="color: #27ae60; font-weight: bold;">{{ part.current_stock }} шт.</span>
+                    </li>
+                    {% empty %}
+                    <li style="color: #999;">Нет запчастей</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Диаграмма типов продаж
+const typeCtx = document.getElementById('salesTypeChart').getContext('2d');
+new Chart(typeCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Оборудование', 'Запчасти', 'Услуги'],
+        datasets: [{
+            data: [
+                {% filter force_escape %}{{ recent_sales|length }}{% endfilter %},
+                {% filter force_escape %}{{ recent_sales|length }}{% endfilter %},
+                0
+            ],
+            backgroundColor: ['#3498db', '#2ecc71', '#9b59b6']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'bottom' },
+            title: { display: true, text: 'Распределение по типам продаж' }
+        }
+    }
+});
+
+// Диаграмма выручки
+const revCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revCtx, {
+    type: 'bar',
+    data: {
+        labels: [{% for sale in recent_sales|slice:":10" %}'{{ sale.created_at|date:"d.m" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Выручка (₽)',
+            data: [{% for sale in recent_sales|slice:":10" %}{{ sale.total_amount }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+            backgroundColor: '#3498db'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Динамика продаж' }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+function exportSales() {
+    window.location.href = '{% url "sales:export_sales" %}';
+}
+</script>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Новая продажа - Система ТОиР{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="color: #2c3e50; margin-bottom: 2rem;">💰 Новая продажа</h1>
+        
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="sale_type" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Тип продажи:</label>
+                    <select name="sale_type" id="sale_type" required onchange="toggleSaleFields()" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">Выберите тип...</option>
+                        <option value="equipment">Оборудование</option>
+                        <option value="spare_part">Запчасть</option>
+                        <option value="service">Услуга</option>
+                    </select>
+                </div>
+
+                <!-- Поле для оборудования -->
+                <div id="equipment_field" style="margin-bottom: 1.5rem; display: none;">
+                    <label for="equipment_id" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Оборудование:</label>
+                    <select name="equipment_id" id="equipment_id" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">Выберите оборудование...</option>
+                        {% for eq in equipment_list %}
+                        <option value="{{ eq.id }}">{{ eq.inv_number }} - {{ eq.name }} ({{ eq.workshop }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Поле для запчасти -->
+                <div id="part_field" style="margin-bottom: 1.5rem; display: none;">
+                    <label for="part_id" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Запчасть:</label>
+                    <select name="part_id" id="part_id" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">Выберите запчасть...</option>
+                        {% for part in parts_list %}
+                        <option value="{{ part.id }}" data-price="{{ part.price|default:0 }}">{{ part.part_number }} - {{ part.name }} ({{ part.current_stock }} шт.)</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Поле для услуги -->
+                <div id="service_field" style="margin-bottom: 1.5rem; display: none;">
+                    <label for="service_name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Название услуги:</label>
+                    <input type="text" name="service_name" id="service_name" placeholder="Например: Консультация, Монтаж..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label for="quantity" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Количество:</label>
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label for="price" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Цена за единицу (₽):</label>
+                        <input type="number" name="price" id="price" step="0.01" min="0" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="customer_name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Имя клиента:</label>
+                    <input type="text" name="customer_name" id="customer_name" placeholder="Иванов Иван Иванович" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="customer_phone" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Телефон клиента:</label>
+                    <input type="tel" name="customer_phone" id="customer_phone" placeholder="+7 (999) 000-00-00" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="notes" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Комментарий:</label>
+                    <textarea name="notes" id="notes" rows="3" placeholder="Дополнительная информация..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">✅ Оформить продажу</button>
+                    <a href="{% url 'sales:dashboard' %}" class="btn btn-secondary" style="flex: 1;">❌ Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSaleFields() {
+    const saleType = document.getElementById('sale_type').value;
+    
+    // Скрываем все поля
+    document.getElementById('equipment_field').style.display = 'none';
+    document.getElementById('part_field').style.display = 'none';
+    document.getElementById('service_field').style.display = 'none';
+    
+    // Показываем нужное поле
+    if (saleType === 'equipment') {
+        document.getElementById('equipment_field').style.display = 'block';
+    } else if (saleType === 'spare_part') {
+        document.getElementById('part_field').style.display = 'block';
+    } else if (saleType === 'service') {
+        document.getElementById('service_field').style.display = 'block';
+    }
+}
+
+// Автозаполнение цены при выборе запчасти
+document.getElementById('part_id').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    if (price && price !== '0') {
+        document.getElementById('price').value = price;
+    }
+});
+</script>
+{% endblock %}
