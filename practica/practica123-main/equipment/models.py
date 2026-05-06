@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class Equipment(models.Model):
@@ -40,7 +41,7 @@ class Equipment(models.Model):
     install_date = models.DateField(null=True, blank=True, verbose_name='Дата установки')
     warranty_until = models.DateField(null=True, blank=True, verbose_name='Гарантия до')
     last_maintenance = models.DateField(null=True, blank=True, verbose_name='Последнее ТО')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     manufacturer = models.CharField(max_length=200, blank=True, null=True, verbose_name='Производитель')
     model = models.CharField(max_length=100, blank=True, null=True, verbose_name='Модель')
     serial_number = models.CharField(max_length=100, blank=True, null=True, verbose_name='Серийный номер')
@@ -112,7 +113,7 @@ class MaintenanceSchedule(models.Model):
     safety_requirements = models.TextField(blank=True, null=True, verbose_name='Требования безопасности')
     cost_estimate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Плановая стоимость')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, verbose_name='Создал')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     
     class Meta:
