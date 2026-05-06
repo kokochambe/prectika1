@@ -32,6 +32,19 @@
     </div>
 </div>
 
+<!-- Диаграммы -->
+<div class="card" style="margin-top: 1.5rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">📈 Аналитика системы</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+        <div>
+            <canvas id="statusChart"></canvas>
+        </div>
+        <div>
+            <canvas id="rolesChart"></canvas>
+        </div>
+    </div>
+</div>
+
 <div class="card" style="margin-top: 1.5rem;">
     <h2>👥 Пользователи по ролям</h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
@@ -102,4 +115,61 @@
         </tbody>
     </table>
 </div>
+
+<!-- Экспорт отчетов -->
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>📥 Выгрузка отчетов</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+        <a href="{% url 'reports:export_equipment' %}" class="btn btn-primary">📊 Оборудование (CSV)</a>
+        <a href="{% url 'reports:export_parts' %}" class="btn btn-success">📦 Запчасти (CSV)</a>
+        <a href="{% url 'reports:export_workorders' %}" class="btn btn-orange">📋 Наряды-заказы (CSV)</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Диаграмма статусов нарядов
+const statusCtx = document.getElementById('statusChart').getContext('2d');
+new Chart(statusCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Новые', 'В работе', 'Выполнено'],
+        datasets: [{
+            data: [{{ new_orders|default:0 }}, {{ in_progress_orders|default:0 }}, {{ completed_orders|default:0 }}],
+            backgroundColor: ['#e74c3c', '#f39c12', '#27ae60']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'bottom' },
+            title: { display: true, text: 'Статусы нарядов-заказов' }
+        }
+    }
+});
+
+// Диаграмма ролей пользователей
+const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+new Chart(rolesCtx, {
+    type: 'bar',
+    data: {
+        labels: [{% for role_stat in users_by_role %}'{{ role_stat.role }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Количество пользователей',
+            data: [{% for role_stat in users_by_role %}{{ role_stat.count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+            backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Распределение пользователей по ролям' }
+        },
+        scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        }
+    }
+});
+</script>
 {% endblock %}
