@@ -159,18 +159,10 @@ def dashboard_view(request):
         template = 'dashboards/trainee.html'
         
     elif user.is_seller:
-        from equipment.models import Equipment
-        from workorders.models import WorkOrder
-        from inventory.models import SparePart
+        from sales.models import Sale
         
-        # Статистика для продавца
-        context['available_equipment'] = Equipment.objects.filter(status='active').count()
-        context['total_parts'] = SparePart.objects.count()
-        context['low_stock_parts'] = SparePart.objects.filter(current_stock__lte=F('min_stock')).count()
-        context['completed_orders'] = WorkOrder.objects.filter(status='completed').count()
-        context['recent_equipment'] = Equipment.objects.filter(status='active').order_by('-created_at')[:10]
-        context['top_parts'] = SparePart.objects.order_by('-current_stock')[:10]
-        template = 'dashboards/seller.html'
+        # Перенаправляем продавца на панель продаж
+        return redirect('sales:dashboard')
     else:
         template = 'dashboards/admin.html'
     

@@ -1,56 +1,31 @@
 ```
-# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.py~
-*.py.class
-*.py.backup
-*.swp
-*.swo
-
-# Django
-*.log
-*.pot
-*.po
-*.mo
-*.db
-*.sqlite3
-*.sqlite3-journal
-media/
-staticfiles/
-.env
-.coverage
-htmlcov/
-coverage/
-.DS_Store
-Thumbs.db
-
-# Migration files (except the ones being tracked)
-!**/migrations/*.py
-**/migrations/*.pyc
-**/migrations/__pycache__/
-
-# Dependencies
+.Python
+env/
 venv/
 .venv/
 .env
 .env.local
 .env.*
-.env~*
-requirements.txt.bak
-Pipfile.lock
-poetry.lock
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+*.log
+*.tmp
+*.swp
+*.swo
+coverage/
+htmlcov/
+.coverage
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+target/
+.gradle/
+node_modules/
 ```
