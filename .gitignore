@@ -1,1 +1,41 @@
-Nothing should be ignored in this case, as only a Python source file (`models.py`) was modified and there are no build artifacts, dependencies, or temporary files in the changes.
+```
+# Database
+db.sqlite3
+
+# Migrations
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+.pytest_cache/
+.hypothesis/
+
+# Django
+*.pot
+*.mo
+.rst
+local_settings.py
+db.sqlite3-journal
+media/
+staticfiles/
+.env
+```
