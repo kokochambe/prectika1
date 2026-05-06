@@ -53,6 +53,34 @@ class WorkOrder(models.Model):
         return f"Наряд #{self.id} - {self.equipment.inv_number}"
 
 
+class TaskNotification(models.Model):
+    """Уведомления о задачах для работников"""
+    
+    STATUS_CHOICES = [
+        ('pending', 'Ожидает'),
+        ('read', 'Прочитано'),
+        ('accepted', 'Взято в работу'),
+        ('in_progress', 'Выполняется'),
+        ('done', 'Выполнено'),
+    ]
+    
+    worker = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications', verbose_name='Работник')
+    work_order = models.ForeignKey(WorkOrder, on_delete=models.CASCADE, related_name='notifications', verbose_name='Наряд-заказ')
+    message = models.TextField(verbose_name='Сообщение')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='Статус')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='sent_notifications', verbose_name='Отправил')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    
+    class Meta:
+        verbose_name = 'Уведомление о задаче'
+        verbose_name_plural = 'Уведомления о задачах'
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"Уведомление #{self.id} для {self.worker.username}"
+
+
 class WorkReport(models.Model):
     """Отчёт о выполненных работах"""
     

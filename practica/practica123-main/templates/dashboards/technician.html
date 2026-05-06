@@ -14,7 +14,81 @@
         <div class="stat-value">{{ completed_orders|default:0 }}</div>
         <div class="stat-label">Выполнено всего</div>
     </div>
+    <div class="stat-card orange">
+        <div class="stat-value">{{ new_orders_count|default:0 }}</div>
+        <div class="stat-label">Новых</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="stat-value">{{ in_progress_count|default:0 }}</div>
+        <div class="stat-label">В работе</div>
+    </div>
 </div>
+
+<!-- Уведомления от админа -->
+{% if pending_notifications %}
+<div class="card" style="margin-top: 1.5rem; border-left: 4px solid #e74c3c; background: linear-gradient(135deg, #fdf2f2 0%, #ffffff 100%);">
+    <h2 style="color: #e74c3c; margin-bottom: 1rem;">🔔 Новые задания от администратора</h2>
+    <div style="display: grid; gap: 1rem;">
+        {% for notification in pending_notifications %}
+        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <span class="badge badge-{{ notification.work_order.order_type }}" style="font-size: 0.85rem;">{{ notification.work_order.get_order_type_display }}</span>
+                    <span class="badge badge-new" style="font-size: 0.85rem; margin-left: 0.5rem;">{{ notification.work_order.get_status_display }}</span>
+                </div>
+                <div style="color: #7f8c8d; font-size: 0.85rem;">{{ notification.created_at|date:"d.m.Y H:i" }}</div>
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">{{ notification.work_order.equipment.inv_number }} - {{ notification.work_order.equipment.name }}</h3>
+            <p style="color: #666; margin-bottom: 1rem;">{{ notification.message }}</p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <form method="post" action="/workorders/notification/{{ notification.id }}/accept/" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" style="padding: 0.5rem 1.5rem;">✅ Взять в работу</button>
+                </form>
+                <a href="/admin/workorders/workorder/{{ notification.work_order.id }}/change/" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">📋 Подробнее</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Активные уведомления (в работе) -->
+{% if active_notifications %}
+<div class="card" style="margin-top: 1.5rem; border-left: 4px solid #3498db; background: linear-gradient(135deg, #ebf5fb 0%, #ffffff 100%);">
+    <h2 style="color: #3498db; margin-bottom: 1rem;">⚡ В работе</h2>
+    <div style="display: grid; gap: 1rem;">
+        {% for notification in active_notifications %}
+        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <span class="badge badge-{{ notification.work_order.order_type }}">{{ notification.work_order.get_order_type_display }}</span>
+                    <span class="badge badge-in_progress" style="margin-left: 0.5rem;">{{ notification.get_status_display }}</span>
+                </div>
+                <div style="color: #7f8c8d; font-size: 0.85rem;">Обновлено: {{ notification.updated_at|date:"d.m.Y H:i" }}</div>
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">{{ notification.work_order.equipment.inv_number }} - {{ notification.work_order.equipment.name }}</h3>
+            <p style="color: #666; margin-bottom: 1rem;">{{ notification.work_order.description|truncatechars:100 }}</p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                {% if notification.status == 'accepted' %}
+                <form method="post" action="/workorders/notification/{{ notification.id }}/start/" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-orange" style="padding: 0.5rem 1.5rem;">🔧 Начать работу</button>
+                </form>
+                {% endif %}
+                {% if notification.status == 'in_progress' %}
+                <form method="post" action="/workorders/notification/{{ notification.id }}/complete/" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" style="padding: 0.5rem 1.5rem;">✅ Завершить</button>
+                </form>
+                {% endif %}
+                <a href="/admin/workorders/workorder/{{ notification.work_order.id }}/change/" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">📝 Изменить статус</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 <div class="card" style="margin-top: 1.5rem;">
     <h2>📋 Мои текущие наряды</h2>
