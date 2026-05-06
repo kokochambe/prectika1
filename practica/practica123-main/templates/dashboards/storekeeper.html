@@ -38,8 +38,8 @@
             {% for req in pending_requests %}
             <tr>
                 <td>#{{ req.id }}</td>
-                <td>{{ req.part.name }} ({{ req.part.part_number }})</td>
-                <td>{{ req.quantity }} {{ req.part.unit }}</td>
+                <td>{{ req.spare_part.name }} ({{ req.spare_part.sku }})</td>
+                <td>{{ req.quantity_requested }} {{ req.spare_part.get_unit_display }}</td>
                 <td>{{ req.requested_by.username }}</td>
                 <td>{{ req.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
@@ -72,10 +72,10 @@
             {% for part in low_stock_parts %}
             <tr>
                 <td>{{ part.name }}</td>
-                <td>{{ part.part_number }}</td>
+                <td>{{ part.sku }}</td>
                 <td style="color: #e74c3c; font-weight: bold;">{{ part.current_stock }}</td>
                 <td>{{ part.min_stock }}</td>
-                <td>{{ part.unit }}</td>
+                <td>{{ part.get_unit_display }}</td>
                 <td>
                     <a href="/admin/inventory/sparepart/{{ part.id }}/change/" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.85rem;">Пополнить</a>
                 </td>
@@ -105,8 +105,8 @@
             {% for req in recent_requests %}
             <tr>
                 <td>#{{ req.id }}</td>
-                <td>{{ req.part.name }}</td>
-                <td>{{ req.quantity }} {{ req.part.unit }}</td>
+                <td>{{ req.spare_part.name }}</td>
+                <td>{{ req.quantity_requested }} {{ req.spare_part.get_unit_display }}</td>
                 <td>{{ req.requested_by.username }}</td>
                 <td><span class="badge badge-{{ req.status }}">{{ req.get_status_display }}</span></td>
                 <td>{{ req.created_at|date:"d.m.Y" }}</td>
