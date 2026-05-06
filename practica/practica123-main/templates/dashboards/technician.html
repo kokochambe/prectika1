@@ -41,7 +41,7 @@
             <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">{{ notification.work_order.equipment.inv_number }} - {{ notification.work_order.equipment.name }}</h3>
             <p style="color: #666; margin-bottom: 1rem;">{{ notification.message }}</p>
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <form method="post" action="/workorders/notification/{{ notification.id }}/accept/" style="display: inline;">
+                <form method="post" action="{% url 'workorders:accept_notification' notification.id %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success" style="padding: 0.5rem 1.5rem;">✅ Взять в работу</button>
                 </form>
@@ -71,13 +71,13 @@
             <p style="color: #666; margin-bottom: 1rem;">{{ notification.work_order.description|truncatechars:100 }}</p>
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 {% if notification.status == 'accepted' %}
-                <form method="post" action="/workorders/notification/{{ notification.id }}/start/" style="display: inline;">
+                <form method="post" action="{% url 'workorders:start_notification' notification.id %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-orange" style="padding: 0.5rem 1.5rem;">🔧 Начать работу</button>
                 </form>
                 {% endif %}
                 {% if notification.status == 'in_progress' %}
-                <form method="post" action="/workorders/notification/{{ notification.id }}/complete/" style="display: inline;">
+                <form method="post" action="{% url 'workorders:complete_notification' notification.id %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success" style="padding: 0.5rem 1.5rem;">✅ Завершить</button>
                 </form>
