@@ -4,6 +4,7 @@ from . import views
 app_name = 'workorders'
 
 urlpatterns = [
+    path('admin/assign-task/', views.admin_assign_task, name='admin_assign_task'),
     path('notification/<int:notification_id>/accept/', views.accept_notification, name='accept_notification'),
     path('notification/<int:notification_id>/start/', views.start_notification, name='start_notification'),
     path('notification/<int:notification_id>/complete/', views.complete_notification, name='complete_notification'),

@@ -1,26 +1,59 @@
 ```
-# Database files
-*.sqlite3
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.py~
+*.py.class
 .Python
-env/
+
+# Virtual environments
 venv/
 .venv/
-.ENV
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+env/
+ENV/
+.ENV/
+
+# Django/Python build artifacts
+*.egg-info/
+*.egg
+
+# Logs
 *.log
+
+# Environment variables
+.env
+.env.local
+*.env*
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
 .DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+
+# Distribution / packaging
+dist/
+build/
+*.tar.gz
+*.whl
+*.zip
+
+# Local configuration
+local_settings.py
 ```
