@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Назначение задания технику{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="margin-bottom: 1.5rem; color: #2c3e50;">📋 Назначение задания технику</h1>
+    
+    <div class="card">
+        <form method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.worker.id_for_label }}" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #2c3e50;">
+                    {{ form.worker.label }}
+                </label>
+                {{ form.worker }}
+                {% if form.worker.errors %}
+                    <div style="color: #e74c3c; margin-top: 0.5rem; font-size: 0.9rem;">
+                        {{ form.worker.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.message.id_for_label }}" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #2c3e50;">
+                    {{ form.message.label }}
+                </label>
+                {{ form.message }}
+                {% if form.message.errors %}
+                    <div style="color: #e74c3c; margin-top: 0.5rem; font-size: 0.9rem;">
+                        {{ form.message.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">
+                    ✅ Назначить задание
+                </button>
+                <a href="{% url 'accounts:dashboard' %}" class="btn btn-secondary" style="padding: 0.75rem 2rem;">
+                    ↩️ Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <div class="card" style="margin-top: 1.5rem;">
+        <h2 style="color: #2c3e50; margin-bottom: 1rem;">👥 Доступные техники</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+            {% for tech in technicians %}
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem; border-radius: 8px; color: white;">
+                <div style="font-weight: bold; font-size: 1.1rem;">{{ tech.username }}</div>
+                <div style="opacity: 0.9; font-size: 0.9rem;">{{ tech.get_role_display }}</div>
+                {% if tech.department %}
+                <div style="opacity: 0.8; font-size: 0.8rem; margin-top: 0.5rem;">🏭 {{ tech.department }}</div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div style="grid-column: 1/-1; text-align: center; color: #999; padding: 2rem;">
+                Нет доступных техников
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -5,6 +5,13 @@
 {% block content %}
 <h1 style="margin-bottom: 1.5rem; color: #2c3e50;">📊 Панель администратора / Начальника ОТК</h1>
 
+<!-- Кнопка назначения задания -->
+<div style="margin-bottom: 1.5rem;">
+    <a href="{% url 'workorders:admin_assign_task' %}" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1rem;">
+        📋 Назначить задание технику
+    </a>
+</div>
+
 <div class="stats-grid">
     <div class="stat-card blue">
         <div class="stat-value">{{ total_equipment|default:0 }}</div>
