@@ -1,41 +1,41 @@
 ```
+# Database
+db.sqlite3
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+
 # Python
-*.pyc
 __pycache__/
+*.pyc
 *.pyo
 *.pyd
 .Python
 env/
-venv/
-.venv/
-.ENV
-.python-version
-.pytest_cache/
-.mypy_cache/
-
-# Django
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
 *.log
-local_settings.py
-db.sqlite3
-*.pot
-*.mo
-media/
-staticfiles/
 .DS_Store
-
-# Databases
-*.sqlite
 *.sqlite3
-*.db
+*.sqlite3-journal
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*.tmp
 
 # OS
-.DS_Store
 Thumbs.db
+.DS_Store
+Desktop.ini
+ehthumbs.db
+Icon?
 ```
