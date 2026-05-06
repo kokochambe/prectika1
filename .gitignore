@@ -1,9 +1,7 @@
 ```
-# Django migrations
-practica/practica123-main/*/migrations/*.py
-!practica/practica123-main/*/migrations/__init__.py
-
-# PowerShell script backup/temp files
-reset_db.ps1~
-*.ps1~
+*.pyc
+__pycache__/
+*.sqlite3-shm
+*.sqlite3-wal
+*.sqlite3
 ```

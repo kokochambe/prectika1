@@ -3,43 +3,85 @@
 {% block title %}Вход в систему{% endblock %}
 
 {% block content %}
-<div style="max-width: 400px; margin: 4rem auto;">
-    <div class="card">
-        <h2 style="text-align: center;">🔧 Вход в систему ТОиР</h2>
+<div style="max-width: 450px; margin: 3rem auto;">
+    <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+        <div style="text-align: center; padding: 1.5rem 0;">
+            <div style="font-size: 4rem; margin-bottom: 0.5rem;">🔐</div>
+            <h2 style="color: #2c3e50; font-weight: 700; font-size: 1.8rem;">Вход в систему</h2>
+            <p style="color: #7f8c8d; font-size: 0.95rem; margin-top: 0.5rem;">Система ТОиР</p>
+        </div>
+        
         <form method="post" style="margin-top: 1.5rem;">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Имя пользователя</label>
-                <input type="text" name="username" id="username" class="form-control" required autofocus>
+            <div class="form-group" style="position: relative;">
+                <label for="username" style="color: #2c3e50; font-weight: 600; font-size: 0.9rem;">👤 Имя пользователя</label>
+                <input type="text" name="username" id="username" class="form-control" required autofocus 
+                       style="padding: 0.9rem 1rem; border: 2px solid #e8ecef; border-radius: 10px; transition: all 0.3s ease;"
+                       placeholder="Введите логин">
             </div>
-            <div class="form-group">
-                <label for="password">Пароль</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+            <div class="form-group" style="position: relative;">
+                <label for="password" style="color: #2c3e50; font-weight: 600; font-size: 0.9rem;">🔑 Пароль</label>
+                <input type="password" name="password" id="password" class="form-control" required 
+                       style="padding: 0.9rem 1rem; border: 2px solid #e8ecef; border-radius: 10px; transition: all 0.3s ease;"
+                       placeholder="Введите пароль">
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+            <button type="submit" class="btn btn-primary" 
+                    style="width: 100%; padding: 1rem; font-size: 1.05rem; font-weight: 600; border-radius: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; margin-top: 0.5rem;">
+                Войти в систему →
+            </button>
         </form>
         
-        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; text-align: center;">
-            <p style="color: #666;">
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <p style="color: #7f8c8d; font-size: 0.9rem;">
                 Нет аккаунта? 
-                <a href="{% url 'accounts:register' %}" style="color: #3498db; text-decoration: none; font-weight: 500;">Зарегистрироваться</a>
+                <a href="{% url 'accounts:register' %}" style="color: #667eea; text-decoration: none; font-weight: 600;">Зарегистрироваться</a>
             </p>
             <p style="margin-top: 0.5rem;">
-                <a href="{% url 'accounts:home' %}" style="color: #666; text-decoration: none; font-size: 0.9rem;">← На главную</a>
+                <a href="{% url 'accounts:home' %}" style="color: #95a5a6; text-decoration: none; font-size: 0.85rem;">← На главную</a>
             </p>
         </div>
         
-        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; font-size: 0.9rem; color: #666;">
-            <p><strong>📋 Тестовые учётные записи для входа:</strong></p>
-            <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.8;">
-                <li>👨‍💼 <strong>admin_otir</strong> / <code>admin123</code> — Администратор (полный доступ)</li>
-                <li>⚙️ <strong>eng_ivanov</strong> / <code>engineer123</code> — Инженер ОТиР (планирование ТО)</li>
-                <li>🔧 <strong>tech_sidorov</strong> / <code>tech123</code> — Техник (выполнение работ)</li>
-                <li>📦 <strong>store_morozov</strong> / <code>store123</code> — Кладовщик (склад запчастей)</li>
-                <li>📚 <strong>trainee_smirnov</strong> / <code>trainee123</code> — Практикант (только чтение)</li>
-                <li>🛒 <strong>seller_petrov</strong> / <code>seller123</code> — Продавец (продажи и отчеты)</li>
-            </ul>
-            <p style="margin-top: 1rem; font-style: italic; color: #95a5a6;">💡 Совет: Используйте быстрый вход на главной странице для моментального доступа без ввода пароля!</p>
+        <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; border-left: 4px solid #667eea;">
+            <p style="color: #2c3e50; font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;">📋 Учётные данные для входа:</p>
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">👨‍💼 Администратор</span>
+                    <code style="background: #667eea; color: white; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">admin_otir / admin</code>
+                </div>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">⚙️ Инженер</span>
+                    <code style="background: #11998e; color: white; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">eng_ivanov / admin</code>
+                </div>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">🔧 Техник</span>
+                    <code style="background: #f093fb; color: white; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">tech_sidorov / admin</code>
+                </div>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">📦 Кладовщик</span>
+                    <code style="background: #eb3349; color: white; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">store_morozov / admin</code>
+                </div>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">📚 Практикант</span>
+                    <code style="background: #a8edea; color: #2c3e50; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">trainee_smirnov / admin</code>
+                </div>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e8ecef;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #2c3e50; font-weight: 600;">🛒 Продавец</span>
+                    <code style="background: #f5576c; color: white; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem;">seller_petrov / admin</code>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: #95a5a6; font-style: italic; text-align: center;">
+                💡 Все пользователи имеют единый пароль: <strong style="color: #667eea;">admin</strong>
+            </p>
         </div>
     </div>
 </div>
