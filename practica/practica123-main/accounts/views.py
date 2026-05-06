@@ -200,6 +200,7 @@ def dashboard_view(request):
         
     elif user.is_storekeeper:
         from inventory.models import SparePart, PartRequest
+        from django.db.models import F
         
         context['low_stock_parts'] = SparePart.objects.filter(current_stock__lte=F('min_stock'))
         context['pending_requests'] = PartRequest.objects.filter(status='requested').select_related('spare_part', 'requested_by')[:10]
