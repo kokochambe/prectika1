@@ -170,8 +170,7 @@ def dashboard_view(request):
         
     elif user.is_engineer:
         from equipment.models import Equipment
-        from workorders.models import WorkOrder
-        from accounts.models import TaskNotification
+        from workorders.models import WorkOrder, TaskNotification
         
         context['equipment_count'] = Equipment.objects.filter(workshop=user.department).count() if user.department else Equipment.objects.count()
         context['planned_orders'] = WorkOrder.objects.filter(order_type='planned', status__in=['new', 'assigned']).count()
@@ -192,7 +191,7 @@ def dashboard_view(request):
                     equipment = Equipment.objects.get(id=eq_id)
                     order = WorkOrder.objects.create(
                         equipment=equipment,
-                        work_type=w_type,
+                        order_type=w_type,
                         description=desc,
                         priority=priority,
                         status='new',
@@ -221,7 +220,7 @@ def dashboard_view(request):
                             TaskNotification.objects.create(
                                 worker=order.assigned_user,
                                 work_order=order,
-                                message=f"Вам назначен новый наряд-заказ #{order.id} на {order.equipment.name}. Тип: {order.get_work_type_display()}",
+                                message=f"Вам назначен новый наряд-заказ #{order.id} на {order.equipment.name}. Тип: {order.get_order_type_display()}",
                                 status='pending'
                             )
                             messages.success(request, f'Наряд #{order.id} назначен технику {order.assigned_user.username}')

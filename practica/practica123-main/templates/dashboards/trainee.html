@@ -4,10 +4,46 @@
 
 {% block content %}
 <h1 style="margin-bottom: 1.5rem; color: #2c3e50;">📚 Панель ученика / Практиканта</h1>
-<p style="color: #666; margin-bottom: 1.5rem;">Доступ только на чтение: справочники, чек-листы, просмотр выполненных работ</p>
+<p style="color: #666; margin-bottom: 1.5rem;">Доступ только на чтение: справочники, чек-листы, просмотр выполненных работ, учебные материалы</p>
+
+<!-- Учебные материалы и пособия -->
+<div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <h2 style="color: white;">📖 Учебные материалы и пособия</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <a href="https://meganorm.ru/Data2/390/4728/index.htm" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📘 ГОСТ 18322-78</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Система технического обслуживания и ремонта техники. Термины и определения</p>
+        </a>
+        
+        <a href="https://docs.cntd.ru/document/1200095098" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📗 ЕСТД (Единая система техдокументации)</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Правила выполнения эксплуатационных документов</p>
+        </a>
+        
+        <a href="https://www.consultant.ru/document/cons_doc_LAW_309532/" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📕 Правила охраны труда при эксплуатации электроустановок</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Приказ Минтруда России № 903н</p>
+        </a>
+        
+        <a href="https://meganorm.ru/Data2/390/4728/47288/index.htm" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📙 Система ППР (планово-предупредительных ремонтов)</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Положение о системе ТОиР промышленного оборудования</p>
+        </a>
+        
+        <a href="https://studfile.net/subject/4183406/" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📒 Основы технической диагностики</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Учебное пособие по диагностике оборудования</p>
+        </a>
+        
+        <a href="https://www.booksite.ru/fulltext/1/001/008/059/678.htm" target="_blank" style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 10px; text-decoration: none; color: #333; transition: transform 0.2s; display: block;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <h3 style="margin: 0 0 0.5rem 0; color: #667eea;">📔 Справочник слесаря-ремонтника</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #666;">Практическое руководство по ремонту промышленного оборудования</p>
+        </a>
+    </div>
+</div>
 
 <div class="card" style="margin-top: 1.5rem;">
-    <h2>✅ Недавно выполненные работы</h2>
+    <h2>✅ Недавно выполненные работы (для обучения)</h2>
     <table>
         <thead>
             <tr>
