@@ -20,6 +20,46 @@
     </div>
 </div>
 
+<!-- Форма создания нового наряда -->
+<div class="card" style="margin-top: 1.5rem;">
+    <h2>➕ Создать новый наряд-заказ</h2>
+    <form method="POST" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items: end;">
+        {% csrf_token %}
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Оборудование</label>
+            <select name="equipment" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Выберите оборудование</option>
+                {% for eq in create_form_equipment %}
+                <option value="{{ eq.id }}">{{ eq.inv_number }} - {{ eq.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Тип работы</label>
+            <select name="work_type" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Выберите тип</option>
+                <option value="planned">Плановое ТО</option>
+                <option value="corrective">Корректирующий ремонт</option>
+                <option value="emergency">Аварийный ремонт</option>
+            </select>
+        </div>
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Приоритет</label>
+            <select name="priority" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="low">Низкий</option>
+                <option value="medium" selected>Средний</option>
+                <option value="high">Высокий</option>
+                <option value="critical">Критический</option>
+            </select>
+        </div>
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Описание</label>
+            <input type="text" name="description" placeholder="Описание работ" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <button type="submit" name="create_order" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">Создать наряд</button>
+    </form>
+</div>
+
 <div class="card" style="margin-top: 1.5rem;">
     <h2>⏳ Заявки в ожидании</h2>
     <table>
@@ -29,7 +69,8 @@
                 <th>Оборудование</th>
                 <th>Тип</th>
                 <th>Статус</th>
-                <th>Дата создания</th>
+                <th>Техник</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +80,30 @@
                 <td>{{ order.equipment.inv_number }} - {{ order.equipment.name }}</td>
                 <td><span class="badge badge-{{ order.order_type }}">{{ order.get_order_type_display }}</span></td>
                 <td><span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span></td>
-                <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                <td>{% if order.assigned_user %}{{ order.assigned_user.username }}{% else %}-{% endif %}</td>
+                <td>
+                    <form method="POST" style="display: inline-flex; gap: 0.5rem; align-items: center;">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <select name="status" style="padding: 0.25rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;">
+                            <option value="new">Новый</option>
+                            <option value="assigned">Назначен</option>
+                            <option value="in_progress">В работе</option>
+                            <option value="pending_parts">Ожидает запчасти</option>
+                            <option value="completed">Завершен</option>
+                        </select>
+                        <select name="assignee" style="padding: 0.25rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;">
+                            <option value="">Без исполнителя</option>
+                            {% for tech in technicians %}
+                            <option value="{{ tech.id }}" {% if order.assigned_user_id == tech.id %}selected{% endif %}>{{ tech.username }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" name="update_status" class="btn btn-sm btn-primary" style="padding: 0.25rem 0.75rem;">Обновить</button>
+                    </form>
+                </td>
             </tr>
             {% empty %}
-            <tr><td colspan="5" style="text-align: center; color: #999;">Нет заявок в ожидании</td></tr>
+            <tr><td colspan="6" style="text-align: center; color: #999;">Нет заявок в ожидании</td></tr>
             {% endfor %}
         </tbody>
     </table>

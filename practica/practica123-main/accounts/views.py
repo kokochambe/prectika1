@@ -171,12 +171,69 @@ def dashboard_view(request):
     elif user.is_engineer:
         from equipment.models import Equipment
         from workorders.models import WorkOrder
+        from accounts.models import TaskNotification
         
         context['equipment_count'] = Equipment.objects.filter(workshop=user.department).count() if user.department else Equipment.objects.count()
         context['planned_orders'] = WorkOrder.objects.filter(order_type='planned', status__in=['new', 'assigned']).count()
         context['emergency_orders'] = WorkOrder.objects.filter(order_type='emergency', status__in=['new', 'assigned', 'in_progress']).count()
         context['all_equipment'] = Equipment.objects.all()[:20]
         context['pending_orders'] = WorkOrder.objects.filter(status__in=['new', 'assigned']).select_related('equipment')[:10]
+        
+        # Обработка POST запросов для инженера
+        if request.method == 'POST':
+            if 'create_order' in request.POST:
+                # Создание нового наряда
+                eq_id = request.POST.get('equipment')
+                w_type = request.POST.get('work_type')
+                desc = request.POST.get('description')
+                priority = request.POST.get('priority', 'medium')
+                
+                if eq_id and w_type:
+                    equipment = Equipment.objects.get(id=eq_id)
+                    order = WorkOrder.objects.create(
+                        equipment=equipment,
+                        work_type=w_type,
+                        description=desc,
+                        priority=priority,
+                        status='new',
+                        created_by=user
+                    )
+                    messages.success(request, f'Наряд-заказ #{order.id} успешно создан!')
+                    return redirect('accounts:dashboard')
+            
+            elif 'update_status' in request.POST:
+                # Обновление статуса наряда
+                order_id = request.POST.get('order_id')
+                new_status = request.POST.get('status')
+                assignee_id = request.POST.get('assignee')
+                
+                if order_id:
+                    order = WorkOrder.objects.get(id=order_id)
+                    old_status = order.status
+                    order.status = new_status
+                    
+                    if assignee_id and assignee_id != '':
+                        old_assignee = order.assigned_user
+                        order.assigned_user_id = assignee_id
+                        
+                        # Если назначен новый техник, создаем уведомление
+                        if order.assigned_user and order.assigned_user != old_assignee:
+                            TaskNotification.objects.create(
+                                worker=order.assigned_user,
+                                work_order=order,
+                                message=f"Вам назначен новый наряд-заказ #{order.id} на {order.equipment.name}. Тип: {order.get_work_type_display()}",
+                                status='pending'
+                            )
+                            messages.success(request, f'Наряд #{order.id} назначен технику {order.assigned_user.username}')
+                    
+                    order.save()
+                    messages.success(request, f'Статус наряда #{order.id} обновлен на "{order.get_status_display()}".')
+                    return redirect('accounts:dashboard')
+        
+        # Данные для форм инженера
+        context['create_form_equipment'] = Equipment.objects.all()
+        context['technicians'] = User.objects.filter(is_technician=True)
+        
         template = 'dashboards/engineer.html'
         
     elif user.is_technician:
