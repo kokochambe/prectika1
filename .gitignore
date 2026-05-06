@@ -1,31 +1,44 @@
 ```
-__pycache__/
+# Database
+db.sqlite3
+
+# Compiled Python files
 *.pyc
-*.pyo
-*.pyd
-.Python
-env/
+__pycache__/
+
+# Virtual environments
 venv/
 .venv/
 .env
 .env.local
-.env.*
-.DS_Store
-Thumbs.db
+
+# IDE specific
 .vscode/
 .idea/
-*.log
-*.tmp
 *.swp
 *.swo
+
+# Logs
+*.log
+
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
-.mypy_cache/
-.pytest_cache/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build outputs
 dist/
 build/
 target/
-.gradle/
-node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment variables
+.env*
 ```
